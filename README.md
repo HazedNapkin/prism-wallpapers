@@ -3,6 +3,84 @@
 An advanced automation suite for creating luxury media backdrops and logo cards. Designed to construct perfectly balanced, visually high-end brand assets using custom visual math, dynamic perspective warping, and spatial gradient mesh engines.
 
 ![Nuvio Media Backdrop](https://github.com/bramst0ne/prism-wallpapers/blob/main/collections/networks/2552-apple-tv/backdrops/t2_1080p.jpg)
+
+---
+
+## 🚀 Beginner Installation Guide
+
+Welcome! This guide will help you get the required tools installed on your computer so you can run the scripts.
+
+---
+
+### Step 1: Install Python (and add it to your system PATH)
+
+Python is the programming language used to run our wallpaper automation tools.
+
+#### 🪟 On Windows:
+1. Go to the official [Python Downloads page](https://www.python.org/downloads/) and download it.
+2. Open the downloaded installer file.
+   **CRITICAL STEP:** At the bottom of the installer window, check the box that says **"Add python.exe to PATH"** before clicking "Install Now". 
+   *(If you miss this step, your computer won't recognize Python commands).*
+
+#### 🍏 macOS & 🐧 Linux:
+1. Open your Terminal.
+2. Type the following command to install Python:
+   * **On Mac:** `xcode-select --install`
+   * **On Ubuntu/Debian Linux:** `sudo apt update && sudo apt install python3 python3-pip`
+
+---
+
+### Step 2: Verify Your Installation
+
+Let's make sure everything was installed correctly.
+
+1. Open your terminal
+2. Type the following command and hit Enter:
+   ```bash
+   python --version
+   ```
+   *Note: If you are on Windows or Mac/Linux and that doesn't work, try typing `python3 --version` instead.*
+
+If you see something like `Python 3.11.x` (or a higher number), you are good to go!
+
+---
+
+### Step 3: Download this Project
+
+To get all the scripts onto your computer:
+1. Scroll to the top of this GitHub page.
+2. Click **Code** button, and **Download ZIP**
+3. Extract the ZIP file anywhere on your computer (for example, your Desktop or Documents folder).
+
+---
+
+### Step 4: Open Terminal inside the Project Folder
+
+You need to tell your command prompt to look directly inside the project directory:
+
+1. Open your terminal (Command Prompt on Windows / Terminal on Mac/Linux).
+2. Type `cd` followed by a space.
+3. Drag and drop the folder you extracted in **Step 3** directly into the terminal window. It will paste the path automatically.
+4. Hit Enter. It should look something like this:
+   ```bash
+   cd /path/to/prism-wallpapers
+   ```
+
+---
+
+### Step 5: Install Python Tools (Pip & NumPy)
+
+Python uses a tool called `pip` to download extras like **NumPy** and **Pillow** which are required to run the scripts. We have put all the requirements into a single file for you.
+
+Run this command in your terminal and press Enter:
+
+```bash
+pip install -r requirements.txt
+```
+*(If you used `python3` earlier, you may need to use `pip3 install -r requirements.txt` instead).*
+
+Once the installation finishes, your setup is complete! You are ready to generate your first wallpaper.
+
 ---
 
 ## Project Structure
@@ -21,16 +99,7 @@ prism-wallpapers/
     └── logo_pull.py
 ```
 
-
 ---
-
-## 🛠️ Installation & Requirements
-
-Ensure you have Python 3.8+ installed along with the required imaging libraries:
-
-```bash
-pip install pillow numpy requests
-```
 
 🎨 Tool 1: logo_cards.py
 
