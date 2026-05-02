@@ -1,0 +1,29 @@
+# Local testing files & system logs
+__pycache__/
+*.pyc
+.DS_Store
+.env
+
+# Raw imagery downloads/cache (keep git history small!)
+.cache/
+downloads/
+temp/
+
+# IDE configurations
+.vscode/
+.idea/
+
+# Ignore local manual edits or notes
+notes.txt
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# User data & collections
+collections/
