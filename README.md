@@ -5,8 +5,9 @@ An advanced automation suite for creating luxury media backdrops and logo cards.
 ![Nuvio Media Backdrop](https://github.com/bramst0ne/prism-wallpapers/blob/main/collections/networks/2552-apple-tv/backdrops/t2_1080p.jpg)
 ---
 
-## 📁 Repository Structure
+## Project Structure
 
+```text
 prism-wallpapers/
 ├── .gitignore
 ├── README.md
@@ -18,6 +19,7 @@ prism-wallpapers/
     ├── backdrop_T2_flat.py
     ├── logo_cards.py
     └── logo_pull.py
+```
 
 
 ---
