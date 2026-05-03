@@ -23,10 +23,16 @@ from PIL import Image, ImageDraw, ImageFilter
 # ║                        CONFIGURATION                             ║
 # ╚═══════════════════════════════════════════════════════════════════╝
 
-# -- API Keys
-TMDB_API_KEY = ""           # Your TMDB API key
-FANART_API_KEY = ""         # Your Fanart.tv API key (Optional)
-MDBLIST_API_KEY = ""        # Your MDBList API key (Optional)
+import os
+from dotenv import load_dotenv
+
+# Load keys from the .env file in the project root
+load_dotenv()
+
+# Retrieve keys safely from environment variables
+TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+FANART_API_KEY = os.getenv("FANART_API_KEY")
+MDBLIST_API_KEY = os.getenv("MDBLIST_API_KEY")
 
 # -- Defaults (Can be overwritten via CLI)
 TMDB_ID = None      # Default TMDB ID to process if CLI arg is omitted

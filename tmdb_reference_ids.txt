@@ -108,32 +108,57 @@ Excellent for curating network collections.
 
 | ID | Network Name |
 | :--- | :--- |
-| 213 | netflix
-| 2552 | appletv
-| 1024 | prime
-| 2739 | disney
-| 49 8304 | hbo & hbo max
-| 4330 | paramount+ US
-| 6100 | paramount+ GB
-| 2076 | Paramount Network
-| 453 | Hulu
-| 6219 | MGM+
-| 3353 | Peacock
-| 318 | Starz
-| 129 | A&E
-| 16 | CBS
-| 88 | FX
-| 2 | ABC
-| 6 | NBC
-| 174 | AMC
-| 4661 | AMC+
-| 19 | FOX
-| 67 6631 | howtime
-| 5944 | Sky showtime
-| 30 | USA Network
-| 71 | The CW
-| 4 | BBC One
-| 1063 | Sky Atlantic
-| 4353 | Discovery+
-| 68 | tbs
-| 1112| Crunchyroll
+| 213 | netflix |
+| 2552 | appletv |
+| 1024 | prime |
+| 2739 | disney |
+| 49 8304 | hbo & hbo max |
+| 4330 | paramount+ US |
+| 6100 | paramount+ GB |
+| 2076 | Paramount Network |
+| 453 | Hulu |
+| 6219 | MGM+ |
+| 3353 | Peacock |
+| 318 | Starz |
+| 129 | A&E |
+| 16 | CBS |
+| 88 | FX |
+| 2 | ABC |
+| 6 | NBC |
+| 174 | AMC |
+| 4661 | AMC+ |
+| 19 | FOX |
+| 67 6631 | howtime |
+| 5944 | Sky showtime |
+| 30 | USA Network |
+| 71 | The CW |
+| 4 | BBC One |
+| 1063 | Sky Atlantic |
+| 4353 | Discovery+ |
+| 68 | tbs |
+| 1112| Crunchyroll |
+
+
+## 🗼 Major Providers IDs (different the Networks)
+
+| ID | Network Name |
+| :--- | :--- |
+| 8 | Netflix |
+| 350 | Apple TV+ |
+| 384 | HBO / Max |
+| 337 | Disney+ |
+| 9 | Amazon Prime |
+| 531 | Paramount+ |
+| 15 | Hulu |
+| 386 | Peacock |
+| 37 | Showtime |
+| 43 | STARZ |
+| 686 | MGM+ |
+| 526 | AMC+ |
+| 99 | Shudder |
+| 151 | BBC iPlayer |
+| 258 | Criterion Channel |
+| 283 | Crunchyroll |
+| 584 | Discovery+ |
+| 514 | AsianCrush |
+| 464 | Kocowa |

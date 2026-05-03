@@ -16,8 +16,16 @@ from PIL import Image, ImageOps, ImageFilter
 # ─────────────────────────────────────────────
 #  CONFIG
 # ─────────────────────────────────────────────
-TMDB_API_KEY = ""
-MAX_LOGOS    = 5
+import os
+from dotenv import load_dotenv
+
+# Load keys from the .env file in the project root
+load_dotenv()
+
+# Retrieve keys safely from environment variables
+TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+
+MAX_LOGOS    = 1
 
 # Base collections folder relative to the script location
 BASE_DIR = Path(__file__).resolve().parent.parent / "collections"

@@ -101,6 +101,28 @@ prism-wallpapers/
 
 ---
 
+## 🔑 Setting Up Your API Keys (.env file)
+
+This project connects to **TMDb**, **Fanart.tv**, and **Mdblist** to pull high-quality logos and media assets.
+
+---
+
+#### Add your API keys
+Open your newly created `.env` from `.env.example` file in any text editor (like Notepad or VS Code) and paste your actual keys after the `=` signs:
+
+```text
+TMDB_API_KEY=your_actual_tmdb_key_here
+FANART_API_KEY=your_actual_fanart_key_here
+MDBLIST_API_KEY=your_actual_mdblist_key_here
+```
+
+#### Step 3: Save the file
+Save and close the file. You're done! 
+
+Now when you run the scripts or use the `generate.sh` pipeline, your computer will automatically load these keys into memory.
+
+---
+
 ## 🎨 Tool 1: logo_cards.py
 
 This script places cropped, maximum-scale logos onto background cards. It features an integrated Design Hotfix Registry for precise positional nudges and scale corrections, alongside advanced linear, radial, and multi-point mesh gradient generators.
@@ -159,6 +181,8 @@ Example:
 ```Bash
 python3 logo_cards.py --source both --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"
 ```
+---
+
 ## 🖼️ Tool 2: backdrop_T2.py
 Lets use backdrop_T2.py for example, you can use any of the 4 provided scripts.
 Creates mixed portrait and landscape grid wallpapers complete with custom perspective warping, depth of field effects, and thematic overlay gradients.
@@ -197,7 +221,79 @@ python3 backdrop_T2.py --id 41077 --type company        # this one is for a A24,
 
 python3 backdrop_T2.py --id 28 --type genre             # the type here is genre, so the ID has to be genre specific 
 ```
+
 You'll find more IDs in the tmdb_reference_ids.txt file
+
+
+# Example for MDBlist :
+```Bash
+python3 backdrops_T2.py --url "https://mdblist.com/lists/publicusername/top-rated-movies"
+```
+or you can also use the Shortened URL Format
+```
+python3 backdrops_T2.py --url "publicusername/top-rated-movies"
+
+```
+Custom Sort Option : to be used after --url "XX* <Custom-Sort>
+```
+python3 backdrops_T2.py --url "publicusername/top-rated-movies" --sort imdbrating.desc
+
+--sort imdbvotes.desc / --sort score.desc / --sort tmdbpopular.desc /
+```
+
+---
+
+## 🛠️ Automated Generation (`generate.sh`)
+
+To save you from typing multiple commands for every single ID, you can use the `generate.sh` automation script. It automatically pulls the logos, optimizes them, and generates both Type 1 and Type 2 backdrops in one go.
+
+---
+
+### 💻 How to Run It on Your System
+
+#### 🪟 On Windows (Using Git Bash)
+Windows Command Prompt cannot run `.sh` files natively. The easiest way to run it is using **Git Bash**, which was installed automatically when you installed Git.
+
+1. Go to your project folder where `generate.sh` is located.
+2. Right-click an empty space in the folder and select **Git Bash Here**.
+3. Type the following command and press Enter:
+   ```bash
+   ./generate.sh network 213
+   ```
+
+#### 🍏 macOS & 🐧 Linux
+1. Open your Terminal and navigate to the project folder (`cd /path/to/prism-wallpapers`).
+2. Before running it the first time, give the script permission to run by typing:
+   ```bash
+   chmod +x generate.sh
+   ```
+3. Run the script:
+   ```bash
+   ./generate.sh network 213
+   ```
+
+---
+
+### 📖 Usage Examples
+
+The script is incredibly flexible and accepts arguments in different ways:
+
+* **Standard Order (Type then IDs):**
+  ```bash
+  ./generate.sh network 213
+  ```
+* **Reversed Order (IDs then Type):**
+  ```bash
+  ./generate.sh 213 network
+  ```
+* **Multiple IDs at Once:**
+  ```bash
+  ./generate.sh network 213 49 1024
+  ```
+
+*Supported types are: `network`, `company`, `genre`, and `provider`.*
+
+---
 
 🔧 Overriding Specific Logos (Design Hotfixes)
 

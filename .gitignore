@@ -1,8 +1,14 @@
 # Local testing files & system logs
 __pycache__/
 *.pyc
-.DS_Store
 .env
+.env.local
+
+# Ignore Python virtual environments
+.venv/
+venv/
+ENV/
+env/
 
 # Raw imagery downloads/cache (keep git history small!)
 .cache/

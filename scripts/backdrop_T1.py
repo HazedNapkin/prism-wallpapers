@@ -23,9 +23,16 @@ from PIL import Image, ImageDraw, ImageFilter
 # ║                        CONFIGURATION                             ║
 # ╚═══════════════════════════════════════════════════════════════════╝
 
-TMDB_API_KEY    = ""
-FANART_API_KEY  = ""
-MDBLIST_API_KEY = ""
+import os
+from dotenv import load_dotenv
+
+# Load keys from the .env file in the project root
+load_dotenv()
+
+# Retrieve keys safely from environment variables
+TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+FANART_API_KEY = os.getenv("FANART_API_KEY")
+MDBLIST_API_KEY = os.getenv("MDBLIST_API_KEY")
 
 TMDB_ID         = None
 ID_TYPE         = None
