@@ -100,6 +100,8 @@ Great for organizing company-branded backdrops and layouts.
 | 13 | Nickelodeon |
 | 17981 | AT-X |
 
+Future addition for Production Companies/Studios : Nickelodeon, ...
+
 ---
 
 ## 🗼 Major TV Networks & Streaming Platforms
@@ -136,7 +138,11 @@ Excellent for curating network collections.
 | 1063 | Sky Atlantic |
 | 4353 | Discovery+ |
 | 68 | tbs |
-| 1112| Crunchyroll |
+| 1112 | Crunchyroll |
+| 13 | nickelodeon |
+
+Future addition for Networks : 
+
 
 
 ## 🗼 Major Providers IDs (different the Networks)
@@ -151,14 +157,22 @@ Excellent for curating network collections.
 | 2303 | Paramount+ |
 | 15 | Hulu |
 | 386 | Peacock |
-| 37 | Showtime |
 | 43 | STARZ |
-| 686 | MGM+ |
+| 34 | MGM+ |
 | 526 | AMC+ |
 | 99 | Shudder |
-| 151 | BBC iPlayer |
+| 151 | britbox|
 | 258 | Criterion Channel |
 | 283 | Crunchyroll |
-| 584 | Discovery+ |
+| 524 | Discovery+ |
 | 514 | AsianCrush |
+| 575 | ondemandkorea |
 | 464 | Kocowa |
+| 457 | VIX |
+| 1956 | Angel studios |
+| 344 | Rakuten viki |
+| 175 | netflix-kids |
+
+
+
+Future addition for Providers : 
