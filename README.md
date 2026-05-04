@@ -299,6 +299,44 @@ The script is incredibly flexible and accepts arguments in different ways:
 
 *Supported types are: `network`, `company`, `genre`, and `provider`.*
 
+
+## Curated Collections (Direct TMDb Lists)
+
+You can generate dynamic backdrops using TMDb's global lists by setting the `--type` to `curated`. This skips logos and fetches the top trending, popular, top-rated, or upcoming titles.
+
+### Supported Curated Types
+
+| Type Keyword | Description |
+| :--- | :--- |
+| `trending` | Daily trending movies and TV shows |
+| `popular` | Current most popular titles on TMDb |
+| `top_rated` | All-time top rated movies and TV shows |
+| `upcoming` | Anticipated/Upcoming theatrical & digital releases |
+
+### Usage Examples
+
+```bash
+# Generate daily trending backdrops
+./generate.sh trending curated
+
+# Generate upcoming movie/TV backdrops
+./generate.sh upcoming curated
+```
+
+## Skipping Logo Downloads & Mixing IDs
+
+To save time or prevent overwriting existing downloaded logos, you can use the `--skip-logos` flag. This will bypass the `logo_pull.py` script entirely and jump straight to generating backdrops.
+
+### Usage Example
+```bash
+# Update existing backdrops without re-fetching any logos
+./generate.sh 6100 network --skip-logos
+
+# Mix IDs while skipping the logo download step
+./generate.sh 6100-2076 network --skip-logos
+```
+
+Note: The --skip-logos flag is applied automatically when using --type curated, as these lists do not require individual brand logo downloads.
 ---
 
 🔧 Overriding Specific Logos (Design Hotfixes)

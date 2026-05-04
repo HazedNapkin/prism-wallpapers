@@ -163,47 +163,87 @@ def _calculate_focal_score(item):
 
 def fetch_titles(tmdb_id, id_type, count):
     items = []
-    if id_type == "network":
+    
+    # Handle the new 'curated' type first
+    if id_type == "curated":
+        curated_type = str(tmdb_id).lower().strip()
+        print(f"  -> Pulling curated TMDb list: {curated_type}")
+        
+        if curated_type == "trending":
+            # Pull daily trending movies and TV shows from TMDb
+            m_data = _tmdb("/trending/movie/day")
+            t_data = _tmdb("/trending/tv/day")
+            combined = [("movie", i) for i in m_data.get("results", [])] + [("tv", i) for i in t_data.get("results", [])]
+        elif curated_type == "popular":
+            m_data = _tmdb("/movie/popular")
+            t_data = _tmdb("/tv/popular")
+            combined = [("movie", i) for i in m_data.get("results", [])] + [("tv", i) for i in t_data.get("results", [])]
+        elif curated_type == "top_rated":
+            m_data = _tmdb("/movie/top_rated")
+            t_data = _tmdb("/tv/top_rated")
+            combined = [("movie", i) for i in m_data.get("results", [])] + [("tv", i) for i in t_data.get("results", [])]
+        elif curated_type == "upcoming":
+            m_data = _tmdb("/movie/upcoming")
+            combined = [("movie", i) for i in m_data.get("results", [])]
+        else:
+            print(f"  Unknown curated type: '{curated_type}'.")
+            sys.exit(1)
+
+        # Sort combined items by popularity to ensure top titles are pulled
+        combined_sorted = sorted(combined, key=lambda kt: kt[1].get("popularity", 0), reverse=True)
+        seen = set()
+        for k, item in combined_sorted:
+            if item["id"] not in seen:
+                seen.add(item["id"])
+                items.append((k, item))
+            if len(items) >= count:
+                break
+
+    elif id_type == "network":
         items = _pull_tv({"with_networks": tmdb_id}, count)
     elif id_type == "company":
-        tv       = _pull_tv({"with_companies": tmdb_id}, count)
-        movies   = _pull_movies({"with_companies": tmdb_id}, count)
+        tv = _pull_tv({"with_companies": tmdb_id}, count)
+        movies = _pull_movies({"with_companies": tmdb_id}, count)
         combined = sorted(tv + movies, key=lambda kt: kt[1].get("popularity", 0), reverse=True)
-        seen     = set()
+        seen = set()
         for k, item in combined:
             if item["id"] not in seen:
                 seen.add(item["id"])
                 items.append((k, item))
-            if len(items) >= count: break
+            if len(items) >= count:
+                break
     elif id_type == "provider":
-        tv       = _pull_tv({"with_watch_providers": tmdb_id, "watch_region": "US"}, count)
-        movies   = _pull_movies({"with_watch_providers": tmdb_id, "watch_region": "US"}, count)
+        tv = _pull_tv({"with_watch_providers": tmdb_id, "watch_region": "US"}, count)
+        movies = _pull_movies({"with_watch_providers": tmdb_id, "watch_region": "US"}, count)
         combined = sorted(tv + movies, key=lambda kt: kt[1].get("popularity", 0), reverse=True)
-        seen     = set()
+        seen = set()
         for k, item in combined:
             if item["id"] not in seen:
                 seen.add(item["id"])
                 items.append((k, item))
-            if len(items) >= count: break
+            if len(items) >= count:
+                break
     elif id_type == "genre":
-        movies   = _pull_movies({"with_genres": tmdb_id}, count)
-        tv       = _pull_tv({"with_genres": tmdb_id}, count)
+        movies = _pull_movies({"with_genres": tmdb_id}, count)
+        tv = _pull_tv({"with_genres": tmdb_id}, count)
         combined = sorted(movies + tv, key=lambda kt: kt[1].get("popularity", 0), reverse=True)
-        seen     = set()
+        seen = set()
         for k, item in combined:
             if item["id"] not in seen:
                 seen.add(item["id"])
                 items.append((k, item))
-            if len(items) >= count: break
+            if len(items) >= count:
+                break
     else:
         print(f"  Unknown --type '{id_type}'.")
         sys.exit(1)
 
-    seen, unique = set(), []
+    # Final deduplication pass
+    seen_unique, unique = set(), []
     for k, item in items:
         key = (item.get("media_type", k), item["id"])
-        if key not in seen:
-            seen.add(key)
+        if key not in seen_unique:
+            seen_unique.add(key)
             unique.append((k, item))
     return unique[:count]
 
@@ -734,11 +774,9 @@ def _save(canvas, path):
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(
-        description="Generate a landscape grid wallpaper with staggered columns.")
-    parser.add_argument("--id",          type=int, nargs="+", default=None)
-    parser.add_argument("--type",        default=None,
-                        help="network | provider | company | genre")
+    parser = argparse.ArgumentParser(description="Generate a mixed portrait/landscape grid wallpaper.")
+    parser.add_argument("--id", nargs="+", default=None)
+    parser.add_argument("--type", default=None, help="network | provider | company | genre | curated")
     parser.add_argument("--url",         default=None,
                         help="MDBList URL or 'username/list-slug'")
     parser.add_argument("--sort", default="score.desc", help="MDBList sort, e.g. imdbrating.desc or score.desc")
@@ -755,6 +793,8 @@ def main():
     if not use_mdblist and (not tmdb_ids or not id_type):
         print("\n  ✗  Provide --url OR --id + --type\n")
         sys.exit(1)
+    if args.type == "curated" and args.id:
+        tmdb_ids = [str(args.id[0])]
     if not TMDB_API_KEY:
         print("\n  ✗  TMDB_API_KEY is empty.\n")
         sys.exit(1)
@@ -833,49 +873,55 @@ def main():
     
     single_id = args.id[0] if args.id else None
 
-    if args.type == "network":
-        subfolder = "networks"
-        api_type = "network"
-    elif args.type in ("company", "production_company"):
-        subfolder = "companies"
-        api_type = "company"
-    elif args.type == "provider":
-        subfolder = "providers"
-        api_type = "provider"
+    if args.type == "curated":
+        subfolder = "curated"
+        # Curated types just use the keyword directly (e.g., trending, top-rated)
+        brand_name = str(tmdb_ids[0]).lower().replace("_", "-")
+        out_dir = BASE_DIR / subfolder / brand_name / "backdrops"
     else:
-        subfolder = "genres"
-        api_type = "genre"
+        if args.type == "network":
+            subfolder = "networks"
+            api_type = "network"
+        elif args.type in ("company", "production_company"):
+            subfolder = "companies"
+            api_type = "company"
+        elif args.type == "provider":
+            subfolder = "providers"
+            api_type = "provider"
+        else:
+            subfolder = "genres"
+            api_type = "genre"
 
-    # Fix: Providers do not have a direct ID endpoint on TMDB.
-    # We query the watch providers lists to resolve the correct name.
-    if api_type == "provider":
-        brand_name = f"unknown-{single_id}"
-        try:
-            for endpoint in ("/watch/providers/tv", "/watch/providers/movie"):
-                r = requests.get(f"https://api.themoviedb.org/3{endpoint}", params={"api_key": TMDB_API_KEY, "watch_region": "US"}, timeout=10)
-                if r.status_code == 200:
-                    providers = r.json().get("results", [])
-                    match = next((p for p in providers if p.get("provider_id") == single_id), None)
-                    if match:
-                        brand_name = match.get("provider_name")
-                        break
-        except Exception:
-            pass
-    else:
-        # Networks and Companies use standard endpoints
-        url = f"https://api.themoviedb.org/3/{api_type}/{single_id}"
-        params = {"api_key": TMDB_API_KEY}
-        try:
-            r = requests.get(url, params=params, timeout=10)
-            r.raise_for_status()
-            data = r.json()
-            brand_name = data.get("name") or data.get("title") or f"unknown-{single_id}"
-        except Exception:
+        if api_type == "provider":
             brand_name = f"unknown-{single_id}"
+            try:
+                for endpoint in ("/watch/providers/tv", "/watch/providers/movie"):
+                    r = requests.get(f"https://api.themoviedb.org/3{endpoint}", params={"api_key": TMDB_API_KEY, "watch_region": "US"}, timeout=10)
+                    if r.status_code == 200:
+                        providers = r.json().get("results", [])
+                        match = next((p for p in providers if p.get("provider_id") == single_id), None)
+                        if match:
+                            brand_name = match.get("provider_name")
+                            break
+            except Exception:
+                pass
+        else:
+            url = f"https://api.themoviedb.org/3/{api_type}/{single_id}"
+            params = {"api_key": TMDB_API_KEY}
+            try:
+                r = requests.get(url, params=params, timeout=10)
+                r.raise_for_status()
+                data = r.json()
+                brand_name = data.get("name") or data.get("title") or f"unknown-{single_id}"
+            except Exception:
+                brand_name = f"unknown-{single_id}"
 
-    slug = re.sub(r'[^a-z0-9]+', '-', brand_name.lower()).strip('-')
-    
-    out_dir = BASE_DIR / subfolder / f"{single_id}-{slug}" / "backdrops"
+        slug = re.sub(r'[^a-z0-9]+', '-', brand_name.lower()).strip('-')
+        
+        # This is the ONLY place this specific format should be used
+        out_dir = BASE_DIR / subfolder / f"{single_id}-{slug}" / "backdrops"
+
+    # ── Folder Creation & Saving (Now runs after BOTH branches are correctly determined) ──
     out_dir.mkdir(parents=True, exist_ok=True)
 
     file_4k = out_dir / "t1_flat_4k.jpg"
