@@ -4,6 +4,145 @@ A curated collection of common IDs from The Movie Database (TMDb) for creating s
 
 ---
 
+## 🏢 Popular Production Companies
+
+Great for organizing company-branded backdrops and layouts.
+
+| ID | Production Company |
+| :--- | :--- |
+| 14 | Miramax |
+| 508 | Regency Enterprises |
+| 10104 | New Regency Picture
+| 142877 | Shudder |
+| 204170 10932 | The Criterion Collection & The Criterion Channel |
+| 420 | Marvel Studios |
+| 7505 | Marvel Entertainment |
+| 13252 | Marvel Animation |
+| 429 | DC  |
+| 2243 | DC Universe |
+| 184898 | DC Studios |
+| 128064 | DC Films | |
+| 2 | Walt Disney Pictures |
+| 174 | Warner Bros. Pictures |
+| 33 | Universal Pictures |
+| 4 | Paramount pictures |
+| 34 | Sony Pictures |
+| 3 Pixar |
+| 127928 | 20th century studios |
+| 1 | Licasfilm |
+| 521 | DreamWorks Animation  |
+| 7 | DreamWorks Pictures |
+| 1632 | Lionsgate |
+| 21 | Metro-Goldwyn-Mayer |
+| 92 | Legendary Pictures |
+| 41077 | A24 |
+| 3172 | Blumhouse Productions |
+| 8884 | Blumhouse Television
+| 10342 | Ghibli Studios |
+| 2785 | Warner Bros. animation |
+| 2251 | Sony Animation |
+| 9383 | Blue Sky |
+| 5 | Columbia Pictures |
+| 198847 | crunchyroll |
+| 13 | Nickelodeon |
+| 17981 | AT-X |
+| 204957 | MUBI |
+| 6704 | illumination |
+| 6759 | adult swim |
+| 157740 | crave |
+| 7521 | National Geographic |
+| 123388 | National Geographic Channels International |
+| 177898 | Nat Geo Wild |
+| 7899 | cartoon network studios |
+
+
+
+
+
+
+Future addition for Production Companies/Studios : 
+
+---
+
+## 🗼 Major TV Networks & Streaming Platforms
+
+Excellent for curating network collections.
+
+| ID | Network Name |
+| :--- | :--- |
+| 213 | netflix |
+| 2552 | appletv |
+| 1024 | prime |
+| 2739 | disney |
+| 49 8304 | hbo & hbo max |
+| 4330 | paramount+ US |
+| 6100 | paramount+ GB |
+| 2076 | Paramount Network |
+| 453 | Hulu |
+| 6219 | MGM+ |
+| 3353 | Peacock |
+| 318 | Starz |
+| 129 | A&E |
+| 16 | CBS |
+| 88 | FX |
+| 2 | ABC |
+| 6 | NBC |
+| 174 | AMC |
+| 4661 | AMC+ |
+| 19 | FOX |
+| 67 6631 | howtime |
+| 5944 | Sky showtime |
+| 30 | USA Network |
+| 71 | The CW |
+| 4 | BBC One |
+| 1063 | Sky Atlantic |
+| 4353 | Discovery+ |
+| 68 | tbs |
+| 1112 | Crunchyroll |
+| 13 | nickelodeon |
+| 1344 | crave |
+| 56 | cartoon network |
+| 80 | adult swim |
+| 6750 | national geographic |
+| 43 | national geographic |
+| 65 | History |
+
+
+Future addition for Networks : 
+
+
+
+## 🗼 Major Providers IDs (different the Networks)
+
+| ID | Network Name |
+| :--- | :--- |
+| 8 | Netflix |
+| 350 | Apple TV+ |
+| 1899 | HBO / Max |
+| 337 | Disney+ |
+| 9 | Amazon Prime |
+| 2303 | Paramount+ |
+| 15 | Hulu |
+| 386 | Peacock |
+| 43 | STARZ |
+| 34 | MGM+ |
+| 526 | AMC+ |
+| 99 | Shudder |
+| 151 | britbox|
+| 258 | Criterion Channel |
+| 283 | Crunchyroll |
+| 524 | Discovery+ |
+| 514 | AsianCrush |
+| 575 | ondemandkorea |
+| 464 | Kocowa |
+| 457 | VIX |
+| 1956 | Angel studios |
+| 344 | Rakuten viki |
+| 175 | netflix-kids |
+
+Future addition for Providers : 
+-----
+
 ## 🎭 Movie Genres
 
 Use these IDs to map out custom genre backdrops or filters.
@@ -56,122 +195,3 @@ Some genres are distinct to TV Series on TMDb.
 | 37 | Western |
 
 ---
-
-## 🏢 Popular Production Companies
-
-Great for organizing company-branded backdrops and layouts.
-
-| ID | Production Company |
-| :--- | :--- |
-| 14 | Miramax |
-| 508 | Regency Enterprises |
-| 10104 | New Regency Picture
-| 142877 | Shudder |
-| 204170 10932 | The Criterion Collection & The Criterion Channel |
-| 420 | Marvel Studios |
-| 7505 | Marvel Entertainment |
-| 13252 | Marvel Animation |
-| 429 | DC  |
-| 2243 | DC Universe |
-| 184898 | DC Studios |
-| 128064 | DC Films | |
-| 2 | Walt Disney Pictures |
-| 174 | Warner Bros. Pictures |
-| 33 | Universal Pictures |
-| 4 | Paramount pictures |
-| 34 | Sony Pictures |
-| 3 Pixar |
-| 127928 | 20th century studios |
-| 1 | Licasfilm |
-| 521 | DreamWorks Animation  |
-| 7 | DreamWorks Pictures |
-| 1632 | Lionsgate |
-| 21 | Metro-Goldwyn-Mayer |
-| 92 | Legendary Pictures |
-| 41077 | A24 |
-| 3172 | Blumhouse Productions |
-| 8884 | Blumhouse Television
-| 10342 | Ghibli Studios |
-| 2785 | Warner Bros. animation |
-| 2251 | Sony Animation |
-| 9383 | Blue Sky |
-| 5 | Columbia Pictures |
-| 198847 | crunchyroll |
-| 13 | Nickelodeon |
-| 17981 | AT-X |
-| 204957 | MUBI |
-
-Future addition for Production Companies/Studios : Nickelodeon, ...
-
----
-
-## 🗼 Major TV Networks & Streaming Platforms
-
-Excellent for curating network collections.
-
-| ID | Network Name |
-| :--- | :--- |
-| 213 | netflix |
-| 2552 | appletv |
-| 1024 | prime |
-| 2739 | disney |
-| 49 8304 | hbo & hbo max |
-| 4330 | paramount+ US |
-| 6100 | paramount+ GB |
-| 2076 | Paramount Network |
-| 453 | Hulu |
-| 6219 | MGM+ |
-| 3353 | Peacock |
-| 318 | Starz |
-| 129 | A&E |
-| 16 | CBS |
-| 88 | FX |
-| 2 | ABC |
-| 6 | NBC |
-| 174 | AMC |
-| 4661 | AMC+ |
-| 19 | FOX |
-| 67 6631 | howtime |
-| 5944 | Sky showtime |
-| 30 | USA Network |
-| 71 | The CW |
-| 4 | BBC One |
-| 1063 | Sky Atlantic |
-| 4353 | Discovery+ |
-| 68 | tbs |
-| 1112 | Crunchyroll |
-| 13 | nickelodeon |
-
-Future addition for Networks : 
-
-
-
-## 🗼 Major Providers IDs (different the Networks)
-
-| ID | Network Name |
-| :--- | :--- |
-| 8 | Netflix |
-| 350 | Apple TV+ |
-| 1899 | HBO / Max |
-| 337 | Disney+ |
-| 9 | Amazon Prime |
-| 2303 | Paramount+ |
-| 15 | Hulu |
-| 386 | Peacock |
-| 43 | STARZ |
-| 34 | MGM+ |
-| 526 | AMC+ |
-| 99 | Shudder |
-| 151 | britbox|
-| 258 | Criterion Channel |
-| 283 | Crunchyroll |
-| 524 | Discovery+ |
-| 514 | AsianCrush |
-| 575 | ondemandkorea |
-| 464 | Kocowa |
-| 457 | VIX |
-| 1956 | Angel studios |
-| 344 | Rakuten viki |
-| 175 | netflix-kids |
-
-Future addition for Providers : 
