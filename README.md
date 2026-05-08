@@ -2,8 +2,6 @@
 
 An advanced automation suite for creating luxury media backdrops and logo cards. Designed to construct perfectly balanced, visually high-end brand assets using custom visual math, dynamic perspective warping, and spatial gradient mesh engines.
 
-![Nuvio Media Backdrop](https://github.com/bramst0ne/prism-wallpapers/blob/main/collections/networks/2552-apple-tv/backdrops/t2_1080p.jpg)
----
 ![Nuvio Media Backdrop](https://github.com/bramst0ne/prism-wallpapers/blob/main/collections/networks/213-netflix/backdrops/t2_flat_4k.jpg)
 
 ---
@@ -84,7 +82,8 @@ pip install -r requirements.txt
 Once the installation finishes, your setup is complete! You are ready to generate your first wallpaper.
 
 ---
-
+![Nuvio Media Backdrop](https://github.com/bramst0ne/prism-wallpapers/blob/main/collections/networks/2552-apple-tv/backdrops/t2_1080p.jpg)
+---
 ## Project Structure
 
 ```text
