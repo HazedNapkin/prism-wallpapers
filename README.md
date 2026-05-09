@@ -265,7 +265,7 @@ Windows Command Prompt cannot run `.sh` files natively. The easiest way to run i
 2. Right-click an empty space in the folder and select **Git Bash Here**.
 3. Type the following command and press Enter:
    ```bash
-   ./generate.sh network 213
+   ./generate.sh 213 network
    ```
 
 #### 🍏 macOS & 🐧 Linux
@@ -276,9 +276,10 @@ Windows Command Prompt cannot run `.sh` files natively. The easiest way to run i
    ```
 3. Run the script:
    ```bash
-   ./generate.sh network 213
+   ./generate.sh 213 network
    ```
 
+if it says python is missing, edit generate.sh where it says python3 to just python
 ---
 
 ### 📖 Usage Examples
@@ -287,7 +288,7 @@ The script is incredibly flexible and accepts arguments in different ways:
 
 * **Standard Order (Type then IDs):**
   ```bash
-  ./generate.sh network 213
+  ./generate.sh 213 network
   ```
 * **Reversed Order (IDs then Type):**
   ```bash
@@ -295,7 +296,7 @@ The script is incredibly flexible and accepts arguments in different ways:
   ```
 * **Multiple IDs at Once:**
   ```bash
-  ./generate.sh network 213 49 1024
+  ./generate.sh 213 49 1024 network
   ```
 
 *Supported types are: `network`, `company`, `genre`, and `provider`.*
