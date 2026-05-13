@@ -110,27 +110,121 @@ FANART_BASE     = "https://webservice.fanart.tv/v3"
 
 # ── TMDB helpers ─────────────────────────────────────────────────────────────
 
+BLOCKED_KEYWORDS = [
+    "hentai", "porn", "pornography", "erotica", "xxx",
+    "av girl", "jav", "milf", "fetish", "bondage",
+    "bdsm", "ecchi", "yaoi", "yuri",
+    "uncensored", "creampie", "bukkake"
+]
+
+
+BLOCKED_IDS = {
+    1241752,
+    95897,
+}
+def _normalize_text(text):
+    text = text.lower()
+
+    # Replace common separators
+    text = re.sub(r"[_\-.]", " ", text)
+
+    # Remove duplicate spaces
+    text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
+
+def _is_adult_content(item):
+    # 1. Manual hard blacklist
+    if item.get("id") in BLOCKED_IDS:
+        return True
+
+    # 2. TMDB internal adult flag
+    if item.get("adult") is True:
+        return True
+
+    # 3. Low-Quality Heuristic
+    # Filter out obscure content with very low engagement
+    if (
+        item.get("vote_count", 0) < 15 and
+        item.get("popularity", 0) < 5
+    ):
+        return True
+
+    # Check ALL title fields
+    texts = [
+        item.get("title", ""),
+        item.get("name", ""),
+        item.get("original_title", ""),
+        item.get("original_name", ""),
+        item.get("overview", "")
+    ]
+
+    for text in texts:
+        text = _normalize_text(text)
+
+        for word in BLOCKED_KEYWORDS:
+
+            # Title fields = partial match
+            if word in text:
+                return True
+
+            # Whole-word regex
+            pattern = r"\b" + re.escape(word) + r"\b"
+
+            if re.search(pattern, text):
+                return True
+
+    # Detect JAV style codes
+    combined = " ".join(texts).lower()
+
+    suspicious_patterns = [
+        r"\b[a-z]{2,5}-\d{2,5}\b",  # ABP-123
+        r"\bfc2\b",
+        r"\b\d{6,}\b"
+    ]
+
+    for pattern in suspicious_patterns:
+        if re.search(pattern, combined):
+            return True
+
+    return False
+
 def _tmdb(endpoint, params=None):
     if not TMDB_API_KEY:
-        print("  ❌ CRITICAL: No API Key loaded. Check your .env file path.")
+        print("  ❌ CRITICAL: No API Key loaded.")
         return {}
-
     p = dict(params or {})
     p["api_key"] = TMDB_API_KEY
-    
-    # trending endpoints do not support include_adult
-    if "trending" not in endpoint:
-        p["include_adult"] = False
-        
+    p["include_adult"] = False  # Apply to all endpoints including trending
+
     url = f"{TMDB_BASE}{endpoint}"
     try:
         r = requests.get(url, params=p, timeout=15)
         if r.status_code != 200:
-            print(f"  ❌ API Error {r.status_code}: {r.text}")
             return {}
-        return r.json()
-    except Exception as e:
-        print(f"  ❌ Connection Error: {e}")
+
+        data = r.json()
+
+        if "results" in data:
+            clean_results = []
+            for item in data["results"]:
+                
+                # 1. DEBUG: Always print ID and Title first
+                print(
+                    f"DEBUG: {item.get('id')} | "
+                    f"{item.get('title') or item.get('name')}"
+                )
+
+                # 2. Run the filter check
+                if _is_adult_content(item):
+                    print(f"  🚫 Filtered: {item.get('title') or item.get('name')}")
+                    continue
+
+                clean_results.append(item)
+
+            data["results"] = clean_results
+        return data
+    except Exception:
         return {}
 
 

@@ -339,6 +339,20 @@ To save time or prevent overwriting existing downloaded logos, you can use the `
 ```
 
 Note: The --skip-logos flag is applied automatically when using --type curated, as these lists do not require individual brand logo downloads.
+
+## 📂 Media-Specific Filtering (Separating Movies vs. TV)
+You can now explicitly separate content by adding `-movies` or `-tv` suffixes to your IDs. This is supported across all categories including Networks, Companies, Genres, and Curated lists.
+
+### Usage Examples
+| Goal | Command |
+| :--- | :--- |
+| **Netflix (Movies Only)** | `./generate.sh 213-movies network` |
+| **Disney+ (TV Only)** | `./generate.sh 2739-tv provider` |
+| **Trending (TV Only)** | `./generate.sh trending-tv curated` |
+| **Action (Mixed)** | `./generate.sh 28 genre` |
+
+*The automation script (`generate.sh`) will automatically detect these suffixes and create dedicated folders on your server (e.g., `/networks/213-movies-netflix/`).*
+
 ---
 
 🔧 Overriding Specific Logos (Design Hotfixes)
@@ -364,17 +378,21 @@ DESIGN_HOTFIXES = {
 ## 🛡️ Enhanced Content Safety
 All dynamic backdrop and card generation now includes an integrated **Adult Content Filter**. By default, the system blocks NSFW metadata and hentai at the API level to ensure your home server wallpapers remain professional and safe for all audiences.
 
+## 🛠️ Manual Maintenance (Blacklisting a Title)
+
+If a title slips through the automated filters (and it will, TMDB adult filter is highly unreliable), you can permanently block it using its TMDB ID.
+
+    Identify the ID: Run any script or the generate.sh pipeline. The console will print a debug line for every title:
+    DEBUG: 912345 | Title Name.
+
+    Add to Blacklist: Open your script and add that ID to the BLOCKED_IDS set:
+    Python
+
+    BLOCKED_IDS = {
+        912345,  # Add the new ID here
+        1241752,
+        95897,
+    }
+
 ---
 
-## 📂 Media-Specific Filtering (Separating Movies vs. TV)
-You can now explicitly separate content by adding `-movies` or `-tv` suffixes to your IDs. This is supported across all categories including Networks, Companies, Genres, and Curated lists.
-
-### Usage Examples
-| Goal | Command |
-| :--- | :--- |
-| **Netflix (Movies Only)** | `./generate.sh 213-movies network` |
-| **Disney+ (TV Only)** | `./generate.sh 2739-tv provider` |
-| **Trending (TV Only)** | `./generate.sh trending-tv curated` |
-| **Action (Mixed)** | `./generate.sh 28 genre` |
-
-*The automation script (`generate.sh`) will automatically detect these suffixes and create dedicated folders on your server (e.g., `/networks/213-movies-netflix/`).*
