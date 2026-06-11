@@ -3,7 +3,10 @@ from tkinter import ttk, messagebox
 import subprocess
 import threading
 import platform
+import sys
 import os
+import requests
+from dotenv import load_dotenv, set_key
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
@@ -311,10 +314,18 @@ class WallpaperGUI:
         ttk.Checkbutton(res_frame, text="Generate 720p (1280x720)",
                         variable=self.res_720p_var).pack(side="left")
 
-        # --- Run Button ---
-        self.run_btn = ttk.Button(self.scrollable_frame, text="Generate Wallpaper",
-                                  command=self.start_thread)
-        self.run_btn.grid(row=5, column=0, pady=15)
+        # --- Action Buttons ---
+        btn_frame = ttk.Frame(self.scrollable_frame)
+        btn_frame.grid(row=5, column=0, pady=15)
+
+        self.run_btn = ttk.Button(btn_frame, text="Generate Wallpaper", command=self.start_thread)
+        self.run_btn.pack(side="left", padx=10)
+
+        self.api_btn = ttk.Button(btn_frame, text="⚙️ Update API Keys", command=self.show_api_key_popup)
+        self.api_btn.pack(side="left", padx=10)
+
+        # Prompt for keys on startup if missing
+        self.root.after(100, self.check_initial_keys)
 
         # --- Console Output ---
         frame_console = ttk.LabelFrame(self.scrollable_frame, text="Console Output", padding=5)
@@ -323,6 +334,122 @@ class WallpaperGUI:
         self.console = tk.Text(frame_console, height=12, bg="#1e1e1e", fg="#00ff00",
                                font=("Consolas", 9))
         self.console.pack(fill="both", expand=True)
+
+    def get_env_path(self):
+        """Determine the correct path for the .env file whether running as a script or compiled exe."""
+        if getattr(sys, 'frozen', False):
+            # If packaged via PyInstaller, save .env next to the executable
+            return Path(sys.executable).parent / ".env"
+        else:
+            # If running locally, save it in the project root
+            return Path(__file__).resolve().parent.parent / ".env"
+
+    def check_initial_keys(self):
+        """Check if TMDB API key exists on load. If not, force the popup."""
+        env_path = self.get_env_path()
+        load_dotenv(dotenv_path=env_path)
+        
+        # TMDB is strictly required to run the tool
+        if not os.getenv("TMDB_API_KEY"):
+            self.show_api_key_popup(force=True)
+
+    def show_api_key_popup(self, force=False):
+        """Displays the API key entry and validation popup."""
+        popup = tk.Toplevel(self.root)
+        popup.title("API Configuration")
+        popup.geometry("500x260")
+        popup.grab_set()  # Make it modal (blocks the main window)
+        popup.resizable(False, False)
+        
+        # If forced on startup, closing the window without saving closes the app
+        if force:
+            popup.protocol("WM_DELETE_WINDOW", lambda: self.root.destroy())
+
+        ttk.Label(popup, text="Please enter your API Keys to continue:", font=("Arial", 11, "bold")).pack(pady=(15, 5))
+        
+        env_path = self.get_env_path()
+        load_dotenv(dotenv_path=env_path, override=True)
+
+        frame = ttk.Frame(popup, padding=10)
+        frame.pack(fill="both", expand=True)
+
+        # Inputs
+        ttk.Label(frame, text="TMDb API Key (*):").grid(row=0, column=0, sticky="w", pady=5)
+        tmdb_var = tk.StringVar(value=os.getenv("TMDB_API_KEY", ""))
+        ttk.Entry(frame, textvariable=tmdb_var, width=45).grid(row=0, column=1, sticky="w", padx=10, pady=5)
+
+        ttk.Label(frame, text="Fanart.tv Key:").grid(row=1, column=0, sticky="w", pady=5)
+        fanart_var = tk.StringVar(value=os.getenv("FANART_API_KEY", ""))
+        ttk.Entry(frame, textvariable=fanart_var, width=45).grid(row=1, column=1, sticky="w", padx=10, pady=5)
+
+        ttk.Label(frame, text="MDBList Key:").grid(row=2, column=0, sticky="w", pady=5)
+        mdblist_var = tk.StringVar(value=os.getenv("MDBLIST_API_KEY", ""))
+        ttk.Entry(frame, textvariable=mdblist_var, width=45).grid(row=2, column=1, sticky="w", padx=10, pady=5)
+
+        status_lbl = ttk.Label(popup, text="", foreground="red", justify="center")
+        status_lbl.pack(pady=5)
+
+        def save_and_validate():
+            status_lbl.config(text="Validating keys over network...", foreground="#007ACC")
+            popup.update()
+
+            t = tmdb_var.get().strip()
+            f = fanart_var.get().strip()
+            m = mdblist_var.get().strip()
+
+            errors = []
+            
+            # --- 1. Validate TMDB (Required) ---
+            if not t:
+                errors.append("TMDb API Key is required.")
+            else:
+                try:
+                    res = requests.get("https://api.themoviedb.org/3/configuration", params={"api_key": t}, timeout=5)
+                    if res.status_code != 200:
+                        errors.append("TMDb API Key is invalid.")
+                except requests.RequestException:
+                    errors.append("Network error connecting to TMDb.")
+
+            # --- 2. Validate Fanart (Optional) ---
+            if f:
+                try:
+                    res = requests.get("https://webservice.fanart.tv/v3/movies/latest", params={"api_key": f}, timeout=5)
+                    if res.status_code == 401:
+                        errors.append("Fanart API Key is invalid.")
+                except requests.RequestException:
+                    errors.append("Network error connecting to Fanart.tv.")
+
+            # --- 3. Validate MDBList (Optional) ---
+            if m:
+                try:
+                    # Test against a known public user list to verify the token works
+                    res = requests.get("https://api.mdblist.com/lists/user/mdblist", params={"apikey": m}, timeout=5)
+                    if res.status_code in (401, 403):
+                        errors.append("MDBList API Key is invalid.")
+                except requests.RequestException:
+                    errors.append("Network error connecting to MDBList.")
+
+            # --- Handle Results ---
+            if errors:
+                status_lbl.config(text="\n".join(errors), foreground="red")
+            else:
+                # Keys are good! Save them to .env
+                if not env_path.exists():
+                    env_path.touch()
+                
+                set_key(env_path, "TMDB_API_KEY", t)
+                set_key(env_path, "FANART_API_KEY", f)
+                set_key(env_path, "MDBLIST_API_KEY", m)
+
+                status_lbl.config(text="Keys verified and saved successfully!", foreground="green")
+                popup.update()
+
+                # Unlock the popup closing logic and destroy it
+                if force:
+                    popup.protocol("WM_DELETE_WINDOW", popup.destroy)
+                popup.after(1000, popup.destroy)
+
+        ttk.Button(popup, text="Save & Validate", command=save_and_validate).pack(pady=(0, 10))
 
     def get_system_fonts(self):
         fonts_dict = {"default": "default"}
@@ -477,7 +604,10 @@ class WallpaperGUI:
         threading.Thread(target=self.run_script, daemon=True).start()
 
     def run_script(self):
-        cmd = ["python", "-u", "wallpaper_engine.py", "--style", self.style_var.get()]
+        base_dir = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+        engine_path = os.path.join(base_dir, "wallpaper_engine.py")
+
+        cmd = [sys.executable, "-u", engine_path, "--style", self.style_var.get()]
         mode = self.mode_var.get()
 
         if mode == "mdblist":
