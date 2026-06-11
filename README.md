@@ -13,17 +13,21 @@ The automated installers that will set up your Python environment, install depen
 **Prerequisite:** Ensure [Python](https://www.python.org/downloads/) is installed on your system. *(On Windows, make sure to check "Add python.exe to PATH" during installation).*
 
 #### 🪟 On Windows:
-1. Double-click the `install_windows.bat` file.
-2. The script will automatically build your virtual environment and install the required tools.
-3. Once finished, launch the app using the new **Prism Wallpapers** shortcut on your Desktop.
+1. Click code in the upper right corner of the github page and download the zip.
+2. Unzip the files and move them to you desired directory.
+3. Double-click the `install_windows.bat` file.
+4. The script will automatically build your virtual environment and install the required tools.
+5. Once finished, launch the app using the new **Prism Wallpapers** shortcut on your Desktop.
 
 #### 🍏 macOS & 🐧 Linux:
-1. Open your terminal and navigate to the project folder.
-2. Run the installer:
+1. Click code in the upper right corner of the github page and download the zip.
+2. Unzip the files and move them to you desired directory.
+3. Open your terminal and navigate to the project folder.
+4. Run the installer:
    ```bash
    chmod +x install_mac_linux.sh
    ./install_mac_linux.sh
-3. Launch the app using the generated Desktop shortcut.
+5. Launch the app using the generated Desktop shortcut.
 
 ## 🔑 Setting Up Your API Keys
 This project connects to TMDb, Fanart.tv, and Mdblist to pull high-quality logos and media assets. You can either enter your keys through the GUI or you can edit the env file.
