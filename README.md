@@ -77,12 +77,10 @@ Examples:
 ```
 # Generate a 3D Mixed grid for Netflix (Movies Only) in 4K and 1080p
 python scripts/wallpaper_engine.py --style t2_3d --id 213-movies --type network --res 4k 1080p
-```
-```
+
 # Generate a Flat Landscape grid from a custom MDBList
 python scripts/wallpaper_engine.py --style t1_flat --url "publicusername/top-rated-movies" --sort "score.desc"
-```
-```
+
 # Generate a Curated Trending TV grid with a custom text overlay
 python scripts/wallpaper_engine.py --style t2_3d --type curated --id trending-tv --text_overlay "Trending This Week" --text_align center
 ```
@@ -101,12 +99,14 @@ This script places cropped, maximum-scale logos onto background cards. It featur
 - Dual-Center Mesh: --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"
 
 Example:
+
 `python scripts/logo_cards.py --source both --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"`
 
 ### 3. Logo Extraction (logo_pull.py)
 Downloads max-resolution logos from TMDB and processes them (including advanced color inversion and white-mask cutouts).
 
 Example:
+
 `python scripts/logo_pull.py --id 213 49 --type network --max 1`
 
 ## 🛡️ Content Safety & Blacklisting
