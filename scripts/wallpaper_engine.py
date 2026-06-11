@@ -601,7 +601,7 @@ def main():
     parser.add_argument("--type", default=None)
     parser.add_argument("--url", nargs="+", default=None)
     parser.add_argument("--sort", default="score.desc")
-    parser.add_argument("--output_dir", default=None, help="Directory to save output files (default: 'wallpapers' folder next to script)")
+    parser.add_argument("--output_dir", default=None, help="Directory to save output files (default: 'wallpapers' folder in the parent directory)")
     parser.add_argument("--filename", default=None, help="Base filename without extension (default: datetime_style)")
     parser.add_argument("--no-gradient", action="store_true")
     
@@ -695,7 +695,7 @@ def main():
         sys.exit("  Error: Provide --url  OR  --type curated [--id <keyword>]  OR  --id <id> --type <type>")
 
     accent = _DEFAULT_ACCENT
-    OUT_DIR = Path(args.output_dir) if args.output_dir else Path(__file__).resolve().parent / "wallpapers"
+    OUT_DIR = Path(args.output_dir) if args.output_dir else Path(__file__).resolve().parent.parent / "wallpapers"
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Determine base filename — user-supplied or datetime + style
