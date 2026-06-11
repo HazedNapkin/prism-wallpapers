@@ -54,35 +54,36 @@ Launch the program via your Desktop shortcut to access the Studio. From here, yo
 ## 🛠️ CLI Power-User Guide
 For those building automated pipelines, you can bypass the GUI and invoke the scripts directly from your terminal.
 
-## Project Structure
+### Project Structure
+```
 prism-wallpapers/
-├── .env
-├── install_windows.bat
-├── install_mac_linux.sh
-├── requirements.txt
-└── scripts/
-    ├── gui_launcher.py
-    ├── wallpaper_engine.py
-    ├── logo_cards.py
-    └── logo_pull.py
-
-1. The Unified Wallpaper Engine (wallpaper_engine.py)
+   ├── .env
+   ├── install_windows.bat
+   ├── install_mac_linux.sh
+   ├── requirements.txt
+   └── scripts/
+       ├── gui_launcher.py
+       ├── wallpaper_engine.py
+       ├── logo_cards.py
+       └── logo_pull.py
+```
+### 1. The Unified Wallpaper Engine (wallpaper_engine.py)
 This script handles all backdrop generation (replacing the old individual layout scripts).
 
 Usage Syntax:
-python scripts/wallpaper_engine.py --style <t1_3d|t1_flat|t2_3d|t2_flat> [options]
+`python scripts/wallpaper_engine.py --style <t1_3d|t1_flat|t2_3d|t2_flat> [options]`
 
 Examples:
-# Generate a 3D Mixed grid for Netflix (Movies Only) in 4K and 1080p
-python scripts/wallpaper_engine.py --style t2_3d --id 213-movies --type network --res 4k 1080p
+`# Generate a 3D Mixed grid for Netflix (Movies Only) in 4K and 1080p
+python scripts/wallpaper_engine.py --style t2_3d --id 213-movies --type network --res 4k 1080p`
 
-# Generate a Flat Landscape grid from a custom MDBList
-python scripts/wallpaper_engine.py --style t1_flat --url "publicusername/top-rated-movies" --sort "score.desc"
+`# Generate a Flat Landscape grid from a custom MDBList
+python scripts/wallpaper_engine.py --style t1_flat --url "publicusername/top-rated-movies" --sort "score.desc"`
 
-# Generate a Curated Trending TV grid with a custom text overlay
-python scripts/wallpaper_engine.py --style t2_3d --type curated --id trending-tv --text_overlay "Trending This Week" --text_align center
+`# Generate a Curated Trending TV grid with a custom text overlay
+python scripts/wallpaper_engine.py --style t2_3d --type curated --id trending-tv --text_overlay "Trending This Week" --text_align center`
 
-2. Logo Cards & Design Hotfixes (logo_cards.py)
+###2. Logo Cards & Design Hotfixes (logo_cards.py)
 This script places cropped, maximum-scale logos onto background cards. It features an integrated Design Hotfix Registry for precise positional nudges and advanced gradient generators.
 
 - Background Configuration Options (--bg):
@@ -96,13 +97,13 @@ This script places cropped, maximum-scale logos onto background cards. It featur
 - Dual-Center Mesh: --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"
 
 Example:
-python scripts/logo_cards.py --source both --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"
+`python scripts/logo_cards.py --source both --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"`
 
-3. Logo Extraction (logo_pull.py)
+### 3. Logo Extraction (logo_pull.py)
 Downloads max-resolution logos from TMDB and processes them (including advanced color inversion and white-mask cutouts).
 
 Example:
-python scripts/logo_pull.py --id 213 49 --type network --max 1
+`python scripts/logo_pull.py --id 213 49 --type network --max 1`
 
 ## 🛡️ Content Safety & Blacklisting
 All dynamic backdrop and card generation includes an integrated Adult Content Filter to ensure your server wallpapers remain professional. It actively blocks NSFW metadata at the API level.
