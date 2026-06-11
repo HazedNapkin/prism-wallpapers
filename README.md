@@ -8,7 +8,7 @@ An advanced automation suite for creating luxury media backdrops and logo cards.
 
 ## 🚀 One-Click Installation
 
-We've replaced the manual setup process with automated installers that will set up your Python environment, install dependencies, and create a Desktop shortcut for the GUI.
+The automated installers that will set up your Python environment, install dependencies, and create a Desktop shortcut for the GUI.
 
 **Prerequisite:** Ensure [Python](https://www.python.org/downloads/) is installed on your system. *(On Windows, make sure to check "Add python.exe to PATH" during installation).*
 
@@ -99,15 +99,17 @@ This script places cropped, maximum-scale logos onto background cards. It featur
 - Dual-Center Mesh: --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"
 
 Example:
-
-`python scripts/logo_cards.py --source both --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"`
+```
+python scripts/logo_cards.py --source both --bg "dual:2d1d2d:231a3a:0e0914:0.3:0.5:0.7:0.5"
+```
 
 ### 3. Logo Extraction (logo_pull.py)
 Downloads max-resolution logos from TMDB and processes them (including advanced color inversion and white-mask cutouts).
 
 Example:
-
-`python scripts/logo_pull.py --id 213 49 --type network --max 1`
+```
+python scripts/logo_pull.py --id 213 49 --type network --max 1
+```
 
 ## 🛡️ Content Safety & Blacklisting
 All dynamic backdrop and card generation includes an integrated Adult Content Filter to ensure your server wallpapers remain professional. It actively blocks NSFW metadata at the API level.
