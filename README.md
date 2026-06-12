@@ -34,7 +34,7 @@ This project connects to TMDb, Fanart.tv, and Mdblist to pull high-quality logos
 
 If editing the env file:
 1. Open the .env.example file in any text editor.
-2. Paste your API keys after the = signs:
+2. Paste your API keys after the = signs (you only need to configure the ones you will use, make all others empty):
     TMDB_API_KEY=your_actual_tmdb_key_here
     FANART_API_KEY=your_actual_fanart_key_here
     MDBLIST_API_KEY=your_actual_mdblist_key_here
