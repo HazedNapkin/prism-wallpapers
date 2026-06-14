@@ -75,6 +75,7 @@ prism-wallpapers/
 This script handles all backdrop generation (replacing the old individual layout scripts).
 
 Usage Syntax:
+
 `python scripts/wallpaper_engine.py --style <t1_3d|t1_flat|t2_3d|t2_flat> [options]`
 
 Examples:
